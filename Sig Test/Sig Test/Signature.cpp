@@ -6,7 +6,7 @@ MODULEINFO GetModuleInfo(const char *szModule, DWORD dwProcessId, HANDLE hProces
 	HANDLE hProcess = NULL;
 
 	do {
-		hProcess = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, dwProcessId);
+		hProcess = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, dwProcessId);
 		if (hProcess == INVALID_HANDLE_VALUE)
 			return modInfo;
 
@@ -74,10 +74,12 @@ bool CheckSignatureValid(HANDLE hProcess, MODULEINFO modInfo, PBYTE szBytes) {
 	VirtualProtectEx(hProcess, (LPVOID)(dwMemoryBase), dwMemorySize, PROCESS_ALL_ACCESS, &dwOld);
 	ReadProcessMemory(hProcess, (LPCVOID)(dwMemoryBase), buf, dwMemorySize, NULL);
 
-	for (int p = 0; p < dwMemorySize - dwSignatureSize; p++) {
-		DWORD i = 0;
+	int p = 0;
+	DWORD i = 0;
+
+	for (p = 0; p < dwMemorySize - dwSignatureSize; p++) {
 		for (i = 0; i < dwSignatureSize; i++) {
-			bSearch = (*((char *)(buf + i + p)) == *((char *)(szBytes + i))) ? true : false;
+			bSearch = (*((BYTE *)(buf + i + p)) == *((BYTE *)(szBytes + i)) || *((BYTE *)(szBytes + i)) == '?') ? true : false;
 			if (!bSearch)
 				break;
 		}
