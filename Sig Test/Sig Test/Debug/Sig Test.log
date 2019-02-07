@@ -1,0 +1,8 @@
+﻿  Signature.cpp
+c:\users\okole\source\repos\sig test\sig test\signature.cpp(19): warning C4477: 'printf' : format string '%X' requires an argument of type 'unsigned int', but variadic argument 1 has type 'LPVOID'
+c:\users\okole\source\repos\sig test\sig test\signature.cpp(77): warning C4018: '<': signed/unsigned mismatch
+  main.cpp
+c:\users\okole\source\repos\sig test\sig test\main.cpp(29): warning C4477: 'fprintf' : format string '%X' requires an argument of type 'unsigned int', but variadic argument 1 has type 'LPVOID'
+c:\users\okole\source\repos\sig test\sig test\main.cpp(34): warning C4477: 'printf' : format string '%X' requires an argument of type 'unsigned int', but variadic argument 2 has type 'LPVOID'
+  Generating Code...
+  Sig Test.vcxproj -> C:\Users\okole\source\repos\Sig Test\Debug\Sig Test.exe
